@@ -28,11 +28,8 @@ void App::RunTracking(float ratio) {
             video->read( videoFrame);
             resize(videoFrame.clone(), videoFrame, Size(frame_width, frame_height));
             detectImg = blobmodel->Detect(videoFrame, kps);
-
-            for (auto point : kps) {
-                std::cout << point.pt << std::endl;
-
-            }
+            // 
+            vector<Rect_<float>> rectan = toBox(kps, 25.);
 
             hconcat(videoFrame, detectImg, result);
             imshow(windowname, result);
@@ -46,7 +43,25 @@ void App::RunTracking(float ratio) {
     }
 }
 
-void App::toBox(std::vector<KeyPoint>&)
+std::vector<Rect_<float>> App::toBox(std::vector<KeyPoint> kps, float calib)
 {
+    std::vector<Rect_<float>> *tempKps = new std::vector<Rect_<float>>();
+    float x, y, r;
+    for (KeyPoint kp : kps) {
+        Rect_<float> pBox;
+        // center
+        x = kp.pt[0];
+        y = kp.pt[1];
+        // size
+        r = kp.size / 2 + calib ;
+        //
+        pBox.x = abs(x - r);
+        pBox.y = abs(y - r);
+        pBox.height = r;
+        pBox.width = r;
+        //
+        tempKps->push_back(pBox);
+    }
 
+    return *tempKps;
 }

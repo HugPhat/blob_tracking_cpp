@@ -10,7 +10,7 @@
 #include "BlobModel.h"
 
 using namespace cv;
-
+using namespace std;
 
 class App
 {
@@ -24,7 +24,7 @@ public:
 		//delete video;
 	}
 	void RunTracking(float);
-	void toBox(std::vector<KeyPoint> &);
+	std::vector<Rect_<float>> toBox(std::vector<KeyPoint> , float );
 
 };
 
