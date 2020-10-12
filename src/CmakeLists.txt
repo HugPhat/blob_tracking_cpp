@@ -1,0 +1,6 @@
+file(GLOB SOURCE_FILES *.cpp)
+file(GLOB HEADER_FILES *.h)
+
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+add_library(LibraryFoF STATIC ${SOURCE_FILES} ${HEADER_FILES})
