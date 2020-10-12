@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="opencv_world341d.dll" />
+    <None Include="opencv_world341.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">

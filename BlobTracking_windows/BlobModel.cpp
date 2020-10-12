@@ -9,8 +9,8 @@ BlobModel::BlobModel() {
 
     // Filter by Area.
     params.filterByArea = true;
-    params.minArea = 15;
-    params.maxArea = 6000;
+    params.minArea = 14;
+    params.maxArea = 7800;
 
     // Filter by Circularity
     params.filterByCircularity = true;
@@ -34,7 +34,12 @@ Mat BlobModel::Detect(Mat im, std::vector<KeyPoint> &kps) {
     Mat gray;
     cvtColor(im, gray, CV_BGR2GRAY);
     detector->detect(gray, kps);
-    Mat im_with_keypoints;
-    drawKeypoints(im , kps, im_with_keypoints, Scalar(0, 255, 255), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-    return im_with_keypoints;
+    if (kps.size() > 1) {
+        Mat im_with_keypoints;
+        drawKeypoints(im , kps, im_with_keypoints, Scalar(0, 255, 255), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+        return im_with_keypoints;
+    }
+    else {
+        return im;
+    }
 }
