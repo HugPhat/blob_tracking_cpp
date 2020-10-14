@@ -4,3 +4,4 @@ BlobTracking_windows/x64
 BlobTracking_windows/Debug
 build
 *.mp4
+*.zip
