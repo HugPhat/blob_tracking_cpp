@@ -1,0 +1,41 @@
+# cmake needs this line
+cmake_minimum_required(VERSION 3.1)
+
+# Define project name
+project(FoF)
+
+# Find OpenCV, you may need to set OpenCV_DIR variable
+# to the absolute path to the directory containing OpenCVConfig.cmake file
+# via the command line or GUI
+
+find_package(OpenCV REQUIRED)
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/build)
+add_executable( FoF ${SOURCE_FILES} main.cpp )
+
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src )
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+# add test video
+add_custom_command(
+        TARGET FoF POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/test.MP4
+                ${CMAKE_CURRENT_BINARY_DIR}/build/release/test.MP4)
+# If the package has been found, several variables will
+# be set, you can find the full list with descriptions
+# in the OpenCVConfig.cmake file.
+# Print some message showing some of them
+
+message(STATUS "OpenCV library status:")
+message(STATUS "    config: ${OpenCV_DIR}")
+message(STATUS "    version: ${OpenCV_VERSION}")
+message(STATUS "    libraries: ${OpenCV_LIBS}")
+message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
+message(STATUS "    CurrentDir: ${CMAKE_CURRENT_BINARY_DIR}")
+
+
+#link_directories( ${CMAKE_BINARY_DIR}/src)
+
+target_link_libraries( FoF LibraryFoF ${OpenCV_LIBS} )
