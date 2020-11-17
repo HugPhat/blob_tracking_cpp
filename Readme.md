@@ -1,4 +1,6 @@
 
+Blod detection based on Opencv and Sort Tracking
+
 Build with Release Flag
 
 Arguments:
